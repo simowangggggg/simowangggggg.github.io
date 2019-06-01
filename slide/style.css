@@ -1,0 +1,582 @@
+@charset "UTF-8";
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #555, #222);
+  font-family: 'Arial Black';
+  -webkit-perspective: 600px;
+  perspective: 600px;
+}
+
+body * {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+body *:before,
+body *:after {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+body #wrapper {
+  width: 700px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
+}
+
+body #wrapper.flash {
+  -webkit-animation: bend 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1 forwards;
+  animation: bend 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1 forwards;
+}
+
+@-webkit-keyframes bend {
+  0% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  20% {
+    -webkit-transform: rotateY(2.5deg);
+    transform: rotateY(2.5deg);
+  }
+
+  50% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes bend {
+  0% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  20% {
+    -webkit-transform: rotateY(2.5deg);
+    transform: rotateY(2.5deg);
+  }
+
+  50% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+body #wrapper #trigger {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 0 1px #ccc, 0 0 0 1px #ccc;
+  z-index: 999;
+  border-radius: 100%;
+  left: calc(12.5% - 12.5px);
+  top: calc(50% - 12.5px);
+  transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+body #wrapper #trigger:hover {
+  background: #ccc;
+}
+
+body #wrapper #trigger:hover:before {
+  color: #222;
+}
+
+body #wrapper #trigger.flash {
+  transition: box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition-delay: 0s, 0.2s;
+  box-shadow: 0 0 0 1px #ccc, 0 0 0 10px transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body #wrapper #trigger:before {
+  content: '→';
+  position: absolute;
+  color: #ccc;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: 0.2s ease-in-out;
+}
+
+body #wrapper.fade {
+  opacity: 0.25;
+}
+
+body #wrapper .card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: -webkit-transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out, -webkit-transform 0.4s ease-in-out;
+}
+
+body #wrapper .card .content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent calc(50% - 1px), rgba(0, 0, 0, 0.05) calc(50% - 1px), rgba(0, 0, 0, 0.05) 50%, transparent 50%), linear-gradient(to right, transparent calc(56% - 1px), rgba(0, 0, 0, 0.05) calc(56% - 1px), rgba(0, 0, 0, 0.05) 56%, transparent 56%), #ccc;
+  background-size: 100%, 100% 50%, 100%;
+  background-repeat: no-repeat;
+  background-position: 50%, 50% 100%, 50%;
+}
+
+body #wrapper .card .content h1 {
+  opacity: 1;
+  position: absolute;
+  left: calc(25% + 10px);
+  top: 100px;
+  font-size: 90px;
+  margin: 0px;
+  color: rgba(0, 0, 0, 0.175);
+  text-transform: uppercase;
+}
+
+body #wrapper .card .content p {
+  position: absolute;
+  width: 22.5%;
+  height: 40%;
+  display: inline-block;
+  bottom: 0;
+  left: calc(25% + 40px);
+  line-height: 1.5;
+  font-family: "Montserrat";
+  font-size: 14px;
+  color: #555;
+  padding: 5px;
+  box-sizing: border-box;
+  transition: 0.3s ease-in-out;
+  -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+}
+
+body #wrapper .card .content h3 {
+  position: absolute;
+  right: -200px;
+  top: 20px;
+  font-size: 80px;
+  margin: 0;
+  color: transparent;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: left;
+  transform-origin: left;
+  transition: right 0.4s ease-in-out, -webkit-transform 0s ease-in-out;
+  transition: transform 0s ease-in-out, right 0.4s ease-in-out;
+  transition: transform 0s ease-in-out, right 0.4s ease-in-out, -webkit-transform 0s ease-in-out;
+  transition-delay: 0.6s, 0s;
+  padding: 0 10px;
+}
+
+body #wrapper .card .content h3:before {
+  content: attr(data-text);
+  color: transparent;
+  -webkit-text-stroke: 3px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  -webkit-transform: translateY(125%) skewY(45deg);
+  transform: translateY(125%) skewY(45deg);
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-delay: 0.4s;
+  left: 10px;
+  top: 0;
+}
+
+body #wrapper .card .content:before {
+  opacity: 0;
+  z-index: 2;
+  transition: 0.2s ease-in-out;
+}
+
+body #wrapper .card .content:before,
+body #wrapper .card .content:after,
+body #wrapper .card .content .inner {
+  content: '';
+  position: absolute;
+  width: 112.5%;
+  height: 100%;
+  left: 12.5%;
+  top: 0;
+  background-size: cover;
+  transition: 0.5s ease-in-out;
+}
+
+body #wrapper .card .content:after {
+  background: transparent;
+  transition: 0.5s ease-in-out;
+}
+
+body #wrapper .card .content:before,
+body #wrapper .card .content .inner:after {
+  -webkit-filter: saturate(0);
+  filter: saturate(0);
+}
+
+body #wrapper .card .content .inner {
+  width: 40%;
+  height: 45%;
+  left: auto;
+  right: 0%;
+  z-index: 999;
+  top: auto;
+  bottom: 0;
+  -webkit-transform-origin: left;
+  transform-origin: left;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  overflow: hidden;
+}
+
+body #wrapper .card .content .inner:before,
+body #wrapper .card .content .inner:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  -webkit-transform-origin: right;
+  transform-origin: right;
+}
+
+body #wrapper .card .content .inner:after {
+  background-size: cover;
+  z-index: 1;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+body #wrapper .card.card1 .content:before,
+body #wrapper .card.card1 .content .inner:after {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg");
+}
+
+body #wrapper .card.card2 .content:before,
+body #wrapper .card.card2 .content .inner:after {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b5/Ahmet_Yal%C3%A7%C4%B1nkaya_2016-04-17_%28Unsplash%29.jpg");
+}
+
+body #wrapper .card.card3 .content:before,
+body #wrapper .card.card3 .content .inner:after {
+  background-image: url("https://images.adsttc.com/media/images/5c37/869a/08a5/e5a4/8900/00b5/slideshow/Keren_Offner_ph._Amit_Geron_KAV_hd_(3).jpg?1547142732");
+}
+
+body #wrapper .card.card4 .content:before,
+body #wrapper .card.card4 .content .inner:after {
+  background-image: url("https://www.voyagetips.com/wp-content/uploads/2017/08/Dome-de-Milan.jpg");
+}
+
+body #wrapper .card:first-of-type {
+  pointer-events: all;
+  left: 0;
+  -webkit-animation: scaleIn 1s ease-in-out 1 forwards;
+  animation: scaleIn 1s ease-in-out 1 forwards;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  z-index: 11;
+}
+
+@-webkit-keyframes scaleIn {
+  from {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+
+  to {
+    -webkit-transform: translateX(-75%);
+    transform: translateX(-75%);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+
+  to {
+    -webkit-transform: translateX(-75%);
+    transform: translateX(-75%);
+  }
+}
+
+body #wrapper .card:first-of-type .content:before {
+  opacity: 0.25;
+  -webkit-animation: scaleDown 0.75s ease-in-out 1 forwards;
+  animation: scaleDown 0.75s ease-in-out 1 forwards;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+  -webkit-transform: translateX(6.75%);
+  transform: translateX(6.75%);
+}
+
+@-webkit-keyframes scaleDown {
+  to {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleDown {
+  to {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+body #wrapper .card:first-of-type .content:after {
+  background: #222;
+}
+
+body #wrapper .card:nth-of-type(2) {
+  z-index: 10;
+  -webkit-animation: scaleIn2 1s ease-in-out 1 forwards;
+  animation: scaleIn2 1s ease-in-out 1 forwards;
+  will-change: transform;
+}
+
+@-webkit-keyframes scaleIn2 {
+  from {
+    -webkit-transform: translateX(-75%);
+    transform: translateX(-75%);
+  }
+
+  to {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+
+@keyframes scaleIn2 {
+  from {
+    -webkit-transform: translateX(-75%);
+    transform: translateX(-75%);
+  }
+
+  to {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+
+body #wrapper .card:nth-of-type(2) .content p {
+  transition-delay: 1.85s;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+body #wrapper .card:nth-of-type(2) .content:after {
+  transition-delay: 0.5s;
+}
+
+body #wrapper .card:nth-of-type(2) .content h3 {
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  right: 20px;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  transition-delay: 2s;
+}
+
+body #wrapper .card:nth-of-type(2) .content h3:before {
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-delay: 2.25s;
+}
+
+body #wrapper .card:nth-of-type(2) .content h1 {
+  right: 100px;
+}
+
+body #wrapper .card:nth-of-type(2) .content .inner {
+  -webkit-animation: scaleIn4 0.5s ease-in-out 1 forwards;
+  animation: scaleIn4 0.5s ease-in-out 1 forwards;
+  -webkit-animation-delay: 1.35s;
+  animation-delay: 1.35s;
+  will-change: transform;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+@-webkit-keyframes scaleIn4 {
+  to {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
+
+@keyframes scaleIn4 {
+  to {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
+
+body #wrapper .card:nth-of-type(2) .content .inner:after {
+  -webkit-animation: scaleUp 1s ease-in-out 1 forwards;
+  animation: scaleUp 1s ease-in-out 1 forwards;
+  -webkit-animation-delay: 1.9s;
+  animation-delay: 1.9s;
+  will-change: transform;
+}
+
+@-webkit-keyframes scaleUp {
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleUp {
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+body #wrapper .card:nth-of-type(2) .content .inner:before {
+  -webkit-animation: scaleIn5 0.35s ease-in-out 1 forwards;
+  animation: scaleIn5 0.35s ease-in-out 1 forwards;
+  -webkit-animation-delay: 1.75s;
+  animation-delay: 1.75s;
+  will-change: transform;
+}
+
+@-webkit-keyframes scaleIn5 {
+  to {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+  }
+}
+
+@keyframes scaleIn5 {
+  to {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+  }
+}
+
+body #wrapper .card:nth-of-type(2) .content:before {
+  -webkit-animation: scaleIn3 1.5s ease-in-out 1 forwards;
+  animation: scaleIn3 1.5s ease-in-out 1 forwards;
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+  opacity: 1;
+  will-change: transform;
+}
+
+@-webkit-keyframes scaleIn3 {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  50% {
+    -webkit-transform: translateX(-12.5%);
+    transform: translateX(-12.5%);
+    -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-12.5%);
+    transform: translateX(-12.5%);
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+}
+
+@keyframes scaleIn3 {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  50% {
+    -webkit-transform: translateX(-12.5%);
+    transform: translateX(-12.5%);
+    -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-12.5%);
+    transform: translateX(-12.5%);
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+}
+
+body #wrapper .card:nth-of-type(3) {
+  z-index: 3;
+}
+
+body #wrapper .card:nth-of-type(3) .content:before,
+body #wrapper .card:nth-of-type(3) .content:after {
+  opacity: 0;
+  transition: 0s;
+  transition-delay: 0s;
+}
+
+body #wrapper .card:nth-of-type(3) .content .inner {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  transition: 0.5s ease-in-out;
+  -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
+body #wrapper .card:nth-of-type(3) .content .inner:before {
+  display: none;
+}
+
+body #wrapper .card:nth-of-type(3) .content .inner:after {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
